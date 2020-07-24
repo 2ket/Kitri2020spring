@@ -1,0 +1,12 @@
+package com.java.aop02;
+
+public class PASpect {
+	public void awake() {
+		// TODO Auto-generated method stub
+		System.out.println("일어난다.");
+	}
+	public void sleep() {
+		// TODO Auto-generated method stub
+		System.out.println("잠을잔다.");
+	}
+}

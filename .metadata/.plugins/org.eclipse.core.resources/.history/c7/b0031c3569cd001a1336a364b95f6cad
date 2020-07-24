@@ -1,0 +1,11 @@
+package com.java.di01;
+
+public class MainClass {
+	public static void main(String[] args) {
+		//Su su=new Su();
+		su.disp();
+		
+		//중복성 제거. 의존성높은 것들을 중복제거
+		//DI 의존성을 낮춰주기 위해 생성됨. 객체 생성을 XML에서 함
+	}
+}

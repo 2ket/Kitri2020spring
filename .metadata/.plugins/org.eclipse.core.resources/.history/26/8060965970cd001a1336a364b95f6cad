@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<bean id="su" class="com.java.di01.Su"/>
+<!-- 여기서 이 프로젝트에서 사용하는 클래스를 다 선언해주는것. 프로젝트 크기에 따라 클래스선언 파일(ctx.xml)이 여러개일 수 있다. 
+	스프링에서 클래스 객체선언하면 싱클톤 취급. dao 싱글톤 만들었던것. 생성자 static만들어서 생성자 return해줬던것.
+-->
+<bean id="example" class="com.java.di02.Example"/>
+<bean id="testing" class="com.java.di02.Testing"/>
+<!-- 생성자. 생성자는 싱글톤 선언 x -->
+<bean id="sub1" class="com.java.di03.Sub">
+	<constructor-arg>
+		<value>70</value>
+	</constructor-arg>
+	<constructor-arg value="80"/>
+	<!-- 위 두가지 방식으로 다 선언 가능 -->
+	
+	<!-- properties -->
+</bean>
+<bean id="sub2" class="com.java.di03.Sub">
+	<property name="x">
+		<value>10</value>
+	</property>
+	<property name="y" value="20"/>
+</bean>
+</beans>

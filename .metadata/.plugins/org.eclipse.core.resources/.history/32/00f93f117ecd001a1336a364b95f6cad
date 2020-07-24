@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
+	<!-- 핵심코드 -->
+	<bean id="baby" class="com.java.aop02.Baby"/>
+	
+	<bean id="papa" class="com.java.aop02.Papa"/>
+	
+	<bean id="mama" class="com.java.aop02.Mam"/>
+
+	<!-- 공통코드 -->
+	<bean id="pAspect" class="com.java.aop02.PASpect"/>
+	<!-- AOP --> <!-- namespace에서 aop 체크해줘야 사용가능 -->
+	<aop:config>
+		<aop:aspect id="exAspect" ref="joinPoint">
+			<aop:pointcut id="publicM" expression="within(com.java.aop02.*)"/>
+			<aop:before method="awake" pointcut-ref="publicM"/>
+			<aop:after method="sleep" pointcut-ref="publicM"/>
+		</aop:aspect>
+	</aop:config>
+</beans>

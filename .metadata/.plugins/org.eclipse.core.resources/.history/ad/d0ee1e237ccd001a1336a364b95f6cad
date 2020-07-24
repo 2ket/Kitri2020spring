@@ -1,0 +1,12 @@
+package com.java.aop02;
+
+public class PASpect {	// 공통 클래스 
+	public void awake() {	//공통 함수
+		// TODO Auto-generated method stub
+		System.out.println("일어난다.");
+	}
+	public void sleep() {	//공통함수
+		// TODO Auto-generated method stub
+		System.out.println("잠을잔다.");
+	}
+}
