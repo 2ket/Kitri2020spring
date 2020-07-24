@@ -1,8 +1,0 @@
-package com.java.di01;
-
-public class MainClass {
-	public static void main(String[] args) {
-		Su su=new Su();
-		su.disp();
-	}
-}

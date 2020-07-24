@@ -1,8 +1,0 @@
-package com.java.di04;
-
-public class AA {
-	private int x;
-	private int y;
-	
-	
-}
