@@ -7,5 +7,13 @@
 	<insert id="bank_insert" parameterType="com.java.bank.dto.BankDto">
 		insert into bank values(bank_num_seq.nextval, #{id}, #{name}, #{balance})
 	</insert>
-
+	<select id="bank_select_list" resultType="com.java.bank.dto.BankDto">
+		select * from bank
+	</select>
+	<select id="bank_select" resultType="com.java.bank.dto.BankDto" parameterType="String">
+		select * from bank where id=#{id}
+	</select>
+	<update id="bank_update" parameterType="com.java.bank.dto.BankDto">
+		update bank set balance=#{balance} where id=#{id}
+	</update>
 </mapper>

@@ -1,5 +1,6 @@
 package com.java.bank.ui;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.java.bank.aop.LogAspect;
@@ -36,10 +37,10 @@ private BankDao bankDao;
 		
 		switch (choice) {
 		case 1: makeAccount();break;
-		case 2: break;
+		case 2: deposit();break;
 		case 3: break;
 		case 4: break;
-		case 5: break;
+		case 5: showData();break;
 		case 6: break;
 			
 		
@@ -76,5 +77,38 @@ private BankDao bankDao;
 		
 		sc.close();
 	}
-
+	public void showData() {
+		List<BankDto> bankList=bankDao.showData();
+		LogAspect.logger.info(LogAspect.logMsg+bankList.size());
+		
+		for(int i=0; i<bankList.size(); i++) {
+			BankDto dto=bankList.get(i);
+			System.out.println(dto.toString());
+		}
+	}
+	public void deposit() {
+		Scanner sc=new Scanner(System.in);
+		System.out.println("계좌번호:");
+		String id=sc.next();
+		
+		bankDto=bankDao.select(id);
+		LogAspect.logger.info(LogAspect.logMsg+bankDto);
+		if(bankDto != null) {
+			System.out.println("입금액");
+			long money=sc.nextLong();
+			
+			bankDto.setBalance(bankDto.getBalance()+money);
+			int check=bankDao.update(bankDto);
+			LogAspect.logger.info(LogAspect.logMsg+check);
+			if(check>0) {
+				System.out.println("입금완료. 잔액을 확인하세요.");
+			}else {
+				System.out.println("입금에 실패했습니다. 다시 시도해주세요.");
+			}
+		}else {
+			System.out.println("계좌번호가 존재하지 않습니다.");
+		}
+		
+		sc.close();
+	}
 }
