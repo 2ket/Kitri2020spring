@@ -30,12 +30,8 @@ private BankDao bankDao;
 	public void execute() {
 		// TODO Auto-generated method stub
 		
-		boolean loop=true;
-		Scanner sc=null;
-		while(loop) {
-		
 			printMenu();
-			sc=new Scanner(System.in);
+			Scanner sc=new Scanner(System.in);
 			System.out.println("선택하세요.");
 			int choice=sc.nextInt();
 			
@@ -45,12 +41,12 @@ private BankDao bankDao;
 			case 3: withdraw();break;
 			case 4: inquiry();break;
 			case 5: showData();break;
-			case 6: loop=false;break;
+			case 6: break;
 				
 			default:
 				System.out.println("잘못입력하셨습니다.");
 			}
-		}
+		
 		sc.close();
 	}
 	
