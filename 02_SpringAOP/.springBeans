@@ -8,6 +8,7 @@
 	<enableImports><![CDATA[false]]></enableImports>
 	<configs>
 		<config>src/com/java/aop01/appCTX.xml</config>
+		<config>src/com/java/aop03/appCTX.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

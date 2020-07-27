@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
+	<!-- 핵심클래스 -->
+	<bean id="teacher" class="com.java.aop04.Teacher"/>
+	<bean id="student" class="com.java.aop04.Student"/>
+	
+	<!-- 공통클래스 -->
+	<bean id="pAspect" class="com.java.aop04.PAspect"/>
+	
+	<!-- AOP -->
+	<aop:config>
+		<aop:aspect id="aspect" ref="pAspect">
+			<aop:pointcut expression="within(com.java.aop04.*)" id="pMethod"/><!-- com.java.**도 가능, com.***도 가능 -->
+			
+			
+			<aop:around method="sub" pointcut-ref="pMethod"/>
+			
+			<!--
+			<aop:before method="open" pointcut-ref="pMethod"/>
+			<aop:after method="close" pointcut-ref="pMethod"/>
+			
+			<aop:after-returning method="eat" pointcut-ref="pMethod"/>
+			<aop:after-throwing method="error" pointcut-ref="pMethod"/> 
+			-->
+		</aop:aspect>
+	</aop:config>
+</beans>
