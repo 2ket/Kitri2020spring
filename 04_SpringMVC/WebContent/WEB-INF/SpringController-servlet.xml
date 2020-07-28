@@ -8,9 +8,32 @@
 	<!-- Handler Mapping / UI요청이 들어오면 해당 클래스를 찾아라-->
 	<bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="mappings"><!-- setter -->
-			<props>
+			<props><!-- 클래스를 찾고 -->
 				<prop key="/member/*.do">memberController</prop><!-- 여기의 컨트롤러 = MVC의 커맨드 -->
 			</props><!-- parameter -->
 		</property>
 	</bean>
+	
+	<bean id="propertiesMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props><!-- 함수를 찾음 -->
+				<prop key="/member/test.do">testing</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- MemberController -->
+	<bean id="memberController" class="com.java.member.controller.MemberController">
+		<constructor-arg ref="memberServiceImp"/>
+		<property name="methodNameResolver" ref="propertiesMethodNameResolver"></property>
+	</bean>
+	<!-- MemberService -->
+	<bean id="memberServiceImp" class="com.java.member.service.MemberServiceImp">
+		<constructor-arg ref="memberDaoImp"/>
+	</bean>
+	<!-- MemberDAO -->
+	<bean id="memberDaoImp" class="com.java.member.dao.MemberDaoImp">
+	
+	</bean>
+	<!-- MyBatis -->
 </beans>
