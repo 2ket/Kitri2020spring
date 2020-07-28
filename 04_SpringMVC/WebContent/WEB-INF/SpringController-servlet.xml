@@ -4,7 +4,36 @@
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
-
+	
+	<!-- AOP -->
+	<bean id="hAspect" class="com.java.aop.HAspect"/>
+	<aop:config>
+		<aop:aspect id="exAspect" ref="hAspect">
+			<aop:pointcut expression="within(com.java..*)" id="pMethod"/>
+			<aop:around method="advice" pointcut-ref="pMethod"/>
+		</aop:aspect>
+	</aop:config>
+	
+	
+	<!-- Spring DB Driver -->
+	<bean id="driverManagerDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+		<property name="username" value="mvc"/>
+		<property name="password" value="1234"/>
+	</bean>
+	
+	<!-- Mybatis -->
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="driverManagerDataSource"/>
+		<property name="mapperLocations" value="classpath:com/java/member/dao/mapper/MemberMapper.xml"/>
+	</bean>
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate"><!-- Template으로 던져야해서 -->
+		<constructor-arg ref="sqlSessionFactoryBean"/>
+	</bean>
+	<!-- memberDao로 보내는역할 -->
+	
+	
 	<!-- Handler Mapping / UI요청이 들어오면 해당 클래스를 찾아라-->
 	<bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="mappings"><!-- setter -->
@@ -18,6 +47,8 @@
 		<property name="mappings">
 			<props><!-- 함수를 찾음 -->
 				<prop key="/member/test.do">testing</prop>
+				<prop key="/member/register.do">memberRegister</prop>
+				<prop key="/member/registerOk.do">memberRegisterOk</prop>
 			</props>
 		</property>
 	</bean>
@@ -33,7 +64,12 @@
 	</bean>
 	<!-- MemberDAO -->
 	<bean id="memberDaoImp" class="com.java.member.dao.MemberDaoImp">
-	
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"/>
 	</bean>
-	<!-- MyBatis -->
+	
+	<!-- MVC RequestDispatcher / foward --><!-- view라는 애가 넘어오면 내부적으로 이동하라는 명령 -->
+	<bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
 </beans>
