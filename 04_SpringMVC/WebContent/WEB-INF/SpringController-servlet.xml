@@ -49,6 +49,7 @@
 				<prop key="/member/test.do">testing</prop>
 				<prop key="/member/register.do">memberRegister</prop>
 				<prop key="/member/registerOk.do">memberRegisterOk</prop>
+				<prop key="/member/idCheck.do">memberIdCheck</prop>
 			</props>
 		</property>
 	</bean>

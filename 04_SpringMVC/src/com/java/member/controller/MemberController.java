@@ -40,12 +40,21 @@ public class MemberController extends MultiActionController{	//command
 	public ModelAndView memberRegister(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("member/register");
 	}
-	public void memberRegisterOk(HttpServletRequest request, HttpServletResponse response, MemberDto memberDto) {
+	public ModelAndView memberRegisterOk(HttpServletRequest request, HttpServletResponse response, MemberDto memberDto) {
 		HAspect.logger.info(HAspect.logMsg+memberDto.toString());
 		
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("memberDto", memberDto);
 		
 		memberService.memberRegisterOk(mav);//controller의 함수명과 같게 하는게 좋다.
+		return mav;
+	}
+	
+	public ModelAndView memberIdCheck(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		
+		memberService.memberIdCheck(mav);
+		return mav;
 	}
 }

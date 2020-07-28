@@ -4,6 +4,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 public interface MemberService {
 
-	void memberRegisterOk(ModelAndView mav);
+	public void memberRegisterOk(ModelAndView mav);
+
+	public void memberIdCheck(ModelAndView mav);
 
 }

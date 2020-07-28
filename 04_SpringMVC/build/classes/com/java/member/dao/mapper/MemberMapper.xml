@@ -26,12 +26,12 @@
 	<insert id="member_insert" parameterType="com.java.member.dto.MemberDto">
 		insert into member values(member_num_seq.nextval, #{id}, #{ pw}, #{ name}, #{ jumin1}, #{ jumin2}, #{ email}, #{ zipCode}, #{ addr}, #{ job}, #{ mailing}, #{ interest}, #{ memberLevel}, sysdate)
 	</insert>
-<!-- 	
-		자료형의 경우는 String 이렇게만 써도 되긴함
+ 	
+		<!--자료형의 경우는 String 이렇게만 써도 되긴함-->
 	<select id="member_id_check" parameterType="java.lang.String" resultType="String">
 		select id from member where id=#{id}
 	</select>
-	
+<!--	
 	<select id="member_zipcode" parameterType="String" resultType="com.java.member.dto.ZipcodeDto">
 		select * from zipcode where dong=#{checkDong}
 	</select>

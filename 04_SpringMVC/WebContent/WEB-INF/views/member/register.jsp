@@ -9,6 +9,7 @@
 	<title>회원가입</title>
 	<link rel="stylesheet" href="${root }/CSS/member/joinStyle.css">
 	<script type="text/javascript" src="${root }/javaScript/member/register.js"></script>
+	<script type="text/javascript" src="${root }/javaScript/jquery-3.5.1.js"></script>
 </head>
 <body>
 	<!--<jsp:include page="../../../index.jsp"/><br><br>-->
@@ -21,7 +22,8 @@
 				<div>
 					<label>아이디</label>
 					<span>*<input type="text" name="id">
-					<input type="button" value="아이디중복" onclick="return idCheck(createForm1, '${root}')"></span>
+					<input type="button" value="중복확인" onclick="idCheck('${root}')"/>
+					</span>
 				</div>
 				<div>
 					<label>비밀번호</label>

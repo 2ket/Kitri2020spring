@@ -119,10 +119,22 @@ function createForm(obj){
 }
 
 //아이디 중복체크 팝업으로 뜨게
-function idCheck(obj, root){	
-	var url=root+"/member/idCheck.do?id="+obj.id.value;
-	idCheckButt=true;
-	window.open(url,"","width=400, height=300");
+//function idCheck(obj, root){	
+//	var url=root+"/member/idCheck.do?id="+obj.id.value;
+//	idCheckButt=true;
+//	window.open(url,"","width=400, height=300");
+//}
+function idCheck(root){//아이디 중복 확인을 누르면 입력한 아이디를 가지고 들어가야한다.
+   if($("input[name = 'id']").val() == ""){
+      alert("아이디를 입력하세요");
+      $("input[name = 'id']").focus();
+      return false;
+   }
+   
+   var url = root+"/member/idCheck.do?id=" + $("input[name = 'id']").val();
+   //alert(url);
+   
+   window.open(url, "", "width = 250, height = 150");
 }
 
 //우편번호 검색 버튼 누르면 팝업뜨게

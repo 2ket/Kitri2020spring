@@ -23,4 +23,11 @@ public class MemberDaoImp implements MemberDao {
 	public int memberInsert(MemberDto memberDto) {
 		return sqlSessionTemplate.insert("member_insert", memberDto);
 	}
+	@Override
+	public int memberIdCheck(String id) {
+		String value=sqlSessionTemplate.selectOne("member_id_check", id);
+		int check=0;
+		if(value!=null) check=1;
+		return check;
+	}
 }
