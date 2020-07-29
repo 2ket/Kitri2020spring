@@ -14,7 +14,16 @@
 	<!-- Mybatis : sqlSessionFactoryBean-->
 	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="driverManagerDataSource"/>
-		<property name="mapperLocations" value="classpath:com/java/member/dao/mapper/MemberMapper.xml"/>
+		<!-- mapper.xml이 한개뿐일때는 mapperLoactions(String) 으로 value값 바로 입력되지만, -->
+		<!-- <property name="mapperLocations" value="classpath:com/java/member/dao/mapper/MemberMapper.xml"/> -->
+		
+		<!-- mapper.xml이 두개 이상이면 mapperLoactions(List) 로 List에 담아서  설정해줘야한다.-->
+		<property name="mapperLocations" >
+			<list>
+				<value>classpath:com/java/member/dao/mapper/MemberMapper.xml</value>
+				<value>classpath:com/java/fileBoard/dao/mapper/FileBoardMapper.xml</value>
+			</list>
+		</property>
 	</bean>
 	
 	<!-- Mybatis : sqlSessionTemplate -->

@@ -20,6 +20,7 @@
 		<property name="mappings"><!-- setter -->
 			<props><!-- 클래스를 찾고 -->
 				<prop key="/member/*.do">memberController</prop><!-- 여기의 컨트롤러 = MVC의 커맨드 -->
+				
 			</props><!-- parameter -->
 		</property>
 	</bean>

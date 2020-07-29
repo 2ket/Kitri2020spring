@@ -13,12 +13,35 @@
   <servlet>
   	<servlet-name>SpringController</servlet-name><!-- beans파일과 서블릿이름이 같아야함 beans파일명은 "서블릿이름-servlet.xml" -->
   	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  	<!-- init-param이란 DispatcherServlet에 parameter로 넘겨준다는 뜻 -->
+  	<init-param>
+  		<param-name>contextConfigLocation</param-name><!-- setContextConfigLoaction -->
+  		<param-value>
+  			/WEB-INF/SpringController-servlet.xml
+  			/WEB-INF/mybatis.xml
+  			/WEB-INF/fileBoard.xml
+  			/WEB-INF/member.xml
+  		</param-value>
+  	</init-param>
   	<load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
   	<servlet-name>SpringController</servlet-name>
   	<url-pattern>*.do</url-pattern>
   </servlet-mapping>
+  
+  <listener>
+  	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <context-param>
+  	<param-name>contextConfigLocation</param-name>
+  	<param-value>
+  		/WEB-INF/SpringController-servlet.xml
+  		/WEB-INF/mybatis.xml
+  		/WEB-INF/fileBoard.xml
+  		/WEB-INF/member.xml
+  	</param-value>
+  </context-param>
   
   <!-- UTF-8 -->
   <filter>
