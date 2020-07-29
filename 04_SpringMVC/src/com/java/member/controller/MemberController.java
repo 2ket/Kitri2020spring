@@ -2,6 +2,7 @@ package com.java.member.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
@@ -81,4 +82,29 @@ public class MemberController extends MultiActionController{	//command
 	public ModelAndView memberLogout(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("member/logout");
 	}
+	
+	public ModelAndView memberUpdate(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav= new ModelAndView();
+		mav.addObject("request",request);
+		
+		memberService.memberUpdate(mav);
+		return mav;
+	}
+	public ModelAndView memberUpdateOk(HttpServletRequest request, HttpServletResponse response, MemberDto memberDto) {
+		ModelAndView mav= new ModelAndView();
+		mav.addObject("memberDto",memberDto);
+		memberService.memberUpdateOk(mav);
+		return mav;
+	}
+	public ModelAndView memberDelete(HttpServletRequest request, HttpServletResponse response) {
+		return new ModelAndView("member/delete");
+	}
+	public ModelAndView memberDeleteOk(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav= new ModelAndView();
+		mav.addObject("request",request);
+		memberService.memberDeleteOk(mav);
+		
+		return mav;
+	}
+	
 }

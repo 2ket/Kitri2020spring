@@ -12,4 +12,6 @@ public interface MemberDao {
 	public int memberIdCheck(String id);
 	public List<ZipcodeDto> zipcode(String dong);
 	public String memberLoginOk(Map<String, String> map);
+	public MemberDto memberUpdate(String id);
+	public int memberUpdateOk(MemberDto memberDto);
 }

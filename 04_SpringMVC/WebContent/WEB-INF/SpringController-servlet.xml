@@ -55,6 +55,10 @@
 				<prop key="/member/loginOk.do">memberLoginOk</prop>
 				<prop key="/member/main.do">memberMain</prop>
 				<prop key="/member/logout.do">memberLogout</prop>
+				<prop key="/member/update.do">memberUpdate</prop>
+				<prop key="/member/updateOk.do">memberUpdateOk</prop>
+				<prop key="/member/delete.do">memberDelete</prop>
+				<prop key="/member/deleteOk.do">memberDeleteOk</prop>
 			</props>
 		</property>
 	</bean>

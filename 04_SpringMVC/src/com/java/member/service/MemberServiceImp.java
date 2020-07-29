@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.ModelAndView;
 
@@ -87,5 +88,38 @@ public class MemberServiceImp implements MemberService {
 		mav.addObject("memberLevel",value);
 		mav.addObject("id", hmap.get("id"));
 		mav.setViewName("member/loginOk");
+	}
+	
+	@Override
+	public void memberUpdate(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest)map.get("request");
+		HttpSession session=request.getSession();
+		
+		
+		String id=(String)session.getAttribute("id");
+		MemberDto memberDto=memberDao.memberUpdate(id);
+		HAspect.logger.info(HAspect.logMsg+memberDto);
+		
+		mav.addObject("memberDto",memberDto);
+		mav.setViewName("member/update");
+		
+	}
+	@Override
+	public void memberUpdateOk(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		MemberDto memberDto=(MemberDto)map.get("memberDto");
+		HAspect.logger.info(HAspect.logMsg+memberDto);
+		
+		int check=memberDao.memberUpdateOk(memberDto);
+		HAspect.logger.info(HAspect.logMsg+check);
+		mav.addObject("check",check);
+		mav.setViewName("member/updateOk");
+	}
+	
+	@Override
+	public void memberDeleteOk(ModelAndView mav) {
+		// TODO Auto-generated method stub
+		
 	}
 }
