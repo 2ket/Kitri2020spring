@@ -57,4 +57,28 @@ public class MemberController extends MultiActionController{	//command
 		memberService.memberIdCheck(mav);
 		return mav;
 	}
+	public ModelAndView memberZipcode(HttpServletRequest request, HttpServletResponse response) {
+      ModelAndView mav = new ModelAndView();
+      mav.addObject("request", request);
+      memberService.memberZipcode(mav);
+      
+      return mav;
+	}
+	
+	public ModelAndView memberLogin(HttpServletRequest request, HttpServletResponse response) {
+		return new ModelAndView("member/login");
+	}
+	public ModelAndView memberLoginOk(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav= new ModelAndView();
+		mav.addObject("request",request);
+		memberService.memberLoginOk(mav);
+		
+		return mav;
+	}
+	public ModelAndView memberMain(HttpServletRequest request, HttpServletResponse response) {
+		return new ModelAndView("member/main");
+	}
+	public ModelAndView memberLogout(HttpServletRequest request, HttpServletResponse response) {
+		return new ModelAndView("member/logout");
+	}
 }

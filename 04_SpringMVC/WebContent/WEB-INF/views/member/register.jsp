@@ -8,8 +8,8 @@
 	<meta charset="UTF-8">
 	<title>회원가입</title>
 	<link rel="stylesheet" href="${root }/CSS/member/joinStyle.css">
-	<script type="text/javascript" src="${root }/javaScript/member/register.js"></script>
 	<script type="text/javascript" src="${root }/javaScript/jquery-3.5.1.js"></script>
+	<script type="text/javascript" src="${root }/javaScript/member/register.js"></script>
 </head>
 <body>
 	<!--<jsp:include page="../../../index.jsp"/><br><br>-->

@@ -50,6 +50,11 @@
 				<prop key="/member/register.do">memberRegister</prop>
 				<prop key="/member/registerOk.do">memberRegisterOk</prop>
 				<prop key="/member/idCheck.do">memberIdCheck</prop>
+				<prop key="/member/zipcode.do">memberZipcode</prop>
+				<prop key="/member/login.do">memberLogin</prop>
+				<prop key="/member/loginOk.do">memberLoginOk</prop>
+				<prop key="/member/main.do">memberMain</prop>
+				<prop key="/member/logout.do">memberLogout</prop>
 			</props>
 		</property>
 	</bean>

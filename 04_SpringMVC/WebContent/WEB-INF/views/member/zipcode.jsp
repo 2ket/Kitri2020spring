@@ -7,6 +7,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>우편번호 검색</title>
+	<script type="text/javascript" src="${root }/javaScript/jquery-3.5.1.js"></script>
 	<script type="text/javascript" src="${root }/javaScript/member/register.js"></script>
 </head>
 <body>

@@ -1,8 +1,12 @@
 package com.java.member.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.java.member.dto.MemberDto;
+import com.java.member.dto.ZipcodeDto;
 
 public class MemberDaoImp implements MemberDao {
 	//Mybats SqlSessionTemplate~~
@@ -29,5 +33,14 @@ public class MemberDaoImp implements MemberDao {
 		int check=0;
 		if(value!=null) check=1;
 		return check;
+	}
+	@Override
+	public List<ZipcodeDto> zipcode(String dong) {
+		return sqlSessionTemplate.selectList("member_zipcode", dong);//dto.memberDto.member_zipcode
+	}
+	
+	@Override
+	public String memberLoginOk(Map<String, String> map) {
+		return sqlSessionTemplate.selectOne("member_login", map);
 	}
 }

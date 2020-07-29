@@ -1,5 +1,7 @@
 package com.java.member.service;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.java.aop.HAspect;
 import com.java.member.dao.MemberDao;
 import com.java.member.dto.MemberDto;
+import com.java.member.dto.ZipcodeDto;
 
 public class MemberServiceImp implements MemberService {
 	private MemberDao memberDao;
@@ -47,5 +50,42 @@ public class MemberServiceImp implements MemberService {
 		mav.addObject("check", check);
 		mav.addObject("id", id);
 		mav.setViewName("member/idCheck");
+	}
+	@Override
+	public void memberZipcode(ModelAndView mav) {
+		// TODO Auto-generated method stub
+		 Map<String, Object> map = mav.getModelMap();
+	     HttpServletRequest request = (HttpServletRequest) map.get("request");
+	     
+	     String dong = request.getParameter("dong");
+	     
+	     if(dong != null) {
+	        List<ZipcodeDto> zipcodeDto=memberDao.zipcode(dong);
+	        HAspect.logger.info(HAspect.logMsg+zipcodeDto.size());
+	        
+	        mav.addObject("zipcodeList", zipcodeDto);
+	     }
+	     
+	     mav.setViewName("member/zipcode");
+	     
+	}
+	@Override
+	public void memberLoginOk(ModelAndView mav) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest)map.get("request");
+		
+		
+		Map<String, String> hmap=new HashMap<String, String>();
+		hmap.put("id", request.getParameter("id"));
+		hmap.put("pw", request.getParameter("pw"));
+		
+		HAspect.logger.info(HAspect.logMsg+hmap.toString());
+		String value=memberDao.memberLoginOk(hmap);
+		HAspect.logger.info(HAspect.logMsg+value);
+		
+		mav.addObject("memberLevel",value);
+		mav.addObject("id", hmap.get("id"));
+		mav.setViewName("member/loginOk");
 	}
 }

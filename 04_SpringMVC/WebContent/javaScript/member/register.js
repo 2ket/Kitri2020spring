@@ -147,9 +147,12 @@ function zipcodeReader(root){
 function sendAddress(zipcode, sido, gugun, dong, ri, bunji){
 	if(confirm("이 주소를 사용하겠습니까?")==true){
 		var address=sido+gugun+dong+ri+bunji;
-		opener.createForm1.zipCode.value=zipcode;
-		opener.createForm1.addr.value=address;
-		window.close();
+		//opener.createForm1.zipCode.value=zipcode;
+		//opener.createForm1.addr.value=address;
+		//window.close();
+		$(opener.document).find("input[name='zipCode']").val(zipcode);
+		$(opener.document).find("input[name='addr']").val(address);
+		self.close();
 	}else{
 		return false;
 	}
