@@ -21,7 +21,7 @@
 	<c:when test="${check==0 }">
 		<script type="text/javascript">
 			alert("회원탈퇴 실패");
-			location.href="${root}/member/delete.jsp";
+			location.href="${root}/member/delete.do";
 		</script>
 	</c:when>
 	</c:choose>

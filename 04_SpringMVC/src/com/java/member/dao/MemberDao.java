@@ -14,4 +14,5 @@ public interface MemberDao {
 	public String memberLoginOk(Map<String, String> map);
 	public MemberDto memberUpdate(String id);
 	public int memberUpdateOk(MemberDto memberDto);
+	public int memberDeleteOk(Map<String, String> hmap);
 }

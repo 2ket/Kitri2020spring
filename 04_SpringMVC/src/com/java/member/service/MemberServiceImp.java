@@ -119,7 +119,19 @@ public class MemberServiceImp implements MemberService {
 	
 	@Override
 	public void memberDeleteOk(ModelAndView mav) {
-		// TODO Auto-generated method stub
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest)map.get("request");
+		HttpSession session=request.getSession();
+//		String pw=request.getParameter("pw");
+//		String id=(String)session.getAttribute("id");
 		
+		Map<String, String> hmap=new HashMap<String, String>();
+		hmap.put("id", (String)session.getAttribute("id"));
+		hmap.put("pw", request.getParameter("pw"));
+		int check=memberDao.memberDeleteOk(hmap);
+		HAspect.logger.info(HAspect.logMsg+check);
+		
+		mav.addObject("check", check);
+		mav.setViewName("member/deleteOk");
 	}
 }

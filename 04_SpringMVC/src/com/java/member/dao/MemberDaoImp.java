@@ -53,4 +53,8 @@ public class MemberDaoImp implements MemberDao {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.update("member_update", memberDto);
 	}
+	@Override
+	public int memberDeleteOk(Map<String, String> hmap) {
+		return sqlSessionTemplate.delete("member_delete", hmap);
+	}
 }
