@@ -26,5 +26,9 @@
 		<h4>회원탈퇴</h4>
 		<a href="${root }/member/delete.do">회원탈퇴</a>
 	</c:if>
+	
+	<br><br>
+	<h3>파일게시판</h3>
+	<a href="${root }/fileBoard/write.do">글쓰기</a>
 </body>
 </html>

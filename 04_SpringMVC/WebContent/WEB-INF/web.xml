@@ -11,49 +11,49 @@
   </welcome-file-list>
   
   <servlet>
-  	<servlet-name>SpringController</servlet-name><!-- beans파일과 서블릿이름이 같아야함 beans파일명은 "서블릿이름-servlet.xml" -->
-  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-  	<!-- init-param이란 DispatcherServlet에 parameter로 넘겨준다는 뜻 -->
-  	<init-param>
-  		<param-name>contextConfigLocation</param-name><!-- setContextConfigLoaction -->
-  		<param-value>
-  			/WEB-INF/SpringController-servlet.xml
-  			/WEB-INF/mybatis.xml
-  			/WEB-INF/fileBoard.xml
-  			/WEB-INF/member.xml
-  		</param-value>
-  	</init-param>
-  	<load-on-startup>1</load-on-startup>
+     <servlet-name>SpringController</servlet-name><!-- beans파일과 서블릿이름이 같아야함 beans파일명은 "서블릿이름-servlet.xml" -->
+     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+     <!-- init-param이란 DispatcherServlet에 parameter로 넘겨준다는 뜻 -->
+     <init-param>
+        <param-name>contextConfigLocation</param-name><!-- setContextConfigLoaction -->
+        <param-value>
+           /WEB-INF/SpringController-servlet.xml
+           /WEB-INF/mybatis.xml
+           /WEB-INF/member.xml
+           /WEB-INF/fileBoard.xml
+        </param-value>
+     </init-param>
+     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>SpringController</servlet-name>
-  	<url-pattern>*.do</url-pattern>
+     <servlet-name>SpringController</servlet-name>
+     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
   
   <listener>
-  	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
   <context-param>
-  	<param-name>contextConfigLocation</param-name>
-  	<param-value>
-  		/WEB-INF/SpringController-servlet.xml
-  		/WEB-INF/mybatis.xml
-  		/WEB-INF/fileBoard.xml
-  		/WEB-INF/member.xml
-  	</param-value>
+     <param-name>contextConfigLocation</param-name>
+     <param-value>
+        /WEB-INF/SpringController-servlet.xml
+        /WEB-INF/mybatis.xml
+        /WEB-INF/member.xml
+        /WEB-INF/fileBoard.xml
+     </param-value>
   </context-param>
   
   <!-- UTF-8 -->
   <filter>
-  	<filter-name>encodingFilter</filter-name>
-  	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-  	<init-param>
-  		<param-name>encoding</param-name>
-  		<param-value>UTF-8</param-value>
-  	</init-param>
+     <filter-name>encodingFilter</filter-name>
+     <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+     <init-param>
+        <param-name>encoding</param-name>
+        <param-value>UTF-8</param-value>
+     </init-param>
   </filter>
   <filter-mapping>
-  	<filter-name>encodingFilter</filter-name>
-  	<url-pattern>/*</url-pattern>
+     <filter-name>encodingFilter</filter-name>
+     <url-pattern>/*</url-pattern>
   </filter-mapping>
 </web-app>

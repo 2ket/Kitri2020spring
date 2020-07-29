@@ -30,9 +30,9 @@
 		values(board_num_seq.nextval, #{writer}, #{subject}, #{email}, #{content}, #{password}, #{writeDate}, #{readCount}, #{groupNumber}, #{sequenceNumber}, #{sequenceLevel}, #{fileName}, #{path}, #{fileSize})
 	</insert>
 	 -->
-	<select id="fileBoard_maxGroup" resultType="int">
+	<!-- <select id="fileBoard_maxGroup" resultType="int">
 		select max(group_number) as max_group_num from board
-	</select>
+	</select> -->
 	<!-- 
 	<update id="fileBoard_update_number" parameterType="java.util.Map">
 		<![CDATA[
