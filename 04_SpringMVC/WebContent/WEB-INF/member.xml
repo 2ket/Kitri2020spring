@@ -8,11 +8,11 @@
 	<!-- MemberController -->
 	<bean id="memberController" class="com.java.member.controller.MemberController">
 		<constructor-arg ref="memberServiceImp"/>
-		<property name="methodNameResolver" ref="propertiesMethodNameResolver"></property>
+		<property name="methodNameResolver" ref="memberPropertiesMethodNameResolver"></property>
 	</bean>
 	
 	<!-- Handler Mapping : propertiesMethodNameResolver -->
-	<bean id="propertiesMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+	<bean id="memberPropertiesMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
 		<property name="mappings">
 			<props><!-- 함수를 찾음 -->
 				<prop key="/member/test.do">testing</prop>

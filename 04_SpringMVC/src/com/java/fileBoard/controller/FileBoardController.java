@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
+
+import com.java.fileBoard.dto.FileBoardDto;
 import com.java.fileBoard.service.FileBoardService;
 
 public class FileBoardController extends MultiActionController {
@@ -26,5 +28,12 @@ public class FileBoardController extends MultiActionController {
 		return mav;
 	}
 	
+	public void fileBoardWriteOk(HttpServletRequest request, HttpServletResponse response, FileBoardDto fileBoardDto) {
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("fileBoardDto", fileBoardDto);
+		
+		fileBoardService.fileBoardWriteOk(mav);
+	}
 	
 }

@@ -6,4 +6,6 @@ public interface FileBoardService {
 
 	public void fileBoardWrite(ModelAndView mav);
 
+	public void fileBoardWriteOk(ModelAndView mav);
+
 }
