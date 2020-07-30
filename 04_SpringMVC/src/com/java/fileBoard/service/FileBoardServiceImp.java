@@ -1,10 +1,14 @@
 package com.java.fileBoard.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -61,15 +65,88 @@ public class FileBoardServiceImp implements FileBoardService {
 	@Override
 	public void fileBoardWriteOk(ModelAndView mav) {
 		Map<String, Object> map=mav.getModelMap();
-		FileBoardDto fileBaordDto=(FileBoardDto)map.get("fileBoardDto");
+		FileBoardDto fileBoardDto=(FileBoardDto)map.get("fileBoardDto");
 		MultipartHttpServletRequest request=(MultipartHttpServletRequest)map.get("request");
 		//MultipartHttpServletRequest를 사용하면 formField로 들어왔는지 확인하던 작업이 필요없어진다. HSR보다 파일게시판에 쓰기 좋음
 		
-		fileBaordDto.setWriteDate(new Date());
-		fileBaordDto.setReadCount(0);
-		HAspect.logger.info(HAspect.logMsg+fileBaordDto);
+		fileBoardDto.setWriteDate(new Date());
+		fileBoardDto.setReadCount(0);
+		writeNumber(fileBoardDto);
+		HAspect.logger.info(HAspect.logMsg+fileBoardDto);
 		
+		//log 결과 : boardNumber=0, writer=kkk, subject=kik, email=abc@abc.com, content=kkk, password=kkk, writeDate=Thu Jul 30 09:18:50 KST 2020, readCount=0, groupNumber=1, sequenceNumber=0, sequenceLevel=0, fileName=null, path=null, fileSize=0
 		
+		MultipartFile upFile=request.getFile("file");
+		int check=0;
+		if(upFile.getSize()!=0) {
+			//저장 경로, 파일명, 사이즈
+			String fileName=Long.toString(System.currentTimeMillis())+"_"+upFile.getOriginalFilename();
+			long fileSize=upFile.getSize();
+			
+			File path=new File("C:\\pds\\");
+			
+			path.mkdir();
+			
+			if(path.exists() && path.isDirectory()) {	//혹은 isFile() 써도 됨
+				File file=new File(path, fileName);
+				
+				try {
+					upFile.transferTo(file);
+					
+					fileBoardDto.setPath(file.getAbsolutePath());
+					fileBoardDto.setFileName(fileName);
+					fileBoardDto.setFileSize(fileSize);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			HAspect.logger.info(HAspect.logMsg+fileBoardDto);	
+			check=fileBoardDao.fileBoardWriteOkFile(fileBoardDto);
+		}else {
+			check=fileBoardDao.fileBoardWriteOk(fileBoardDto);
+		}
+		
+		HAspect.logger.info(HAspect.logMsg+check);	
+		
+	}
+	
+	public void writeNumber(FileBoardDto fileBoardDto) {
+		// 그룹번호(ROOT), 글순서(자식), 글 레벨(자식)
+		int boardNumber = fileBoardDto.getBoardNumber();
+		int groupNumber = fileBoardDto.getGroupNumber();
+		int sequenceNumber = fileBoardDto.getSequenceNumber();
+		int sequenceLevel = fileBoardDto.getSequenceLevel();
+
+	
+		if (boardNumber == 0) { // root.
+			int max=fileBoardDao.fileBoardGroupNumberMax();
+					//session.selectOne("fileBoard_maxGroup");
+			
+			if(max!=0) {
+				fileBoardDto.setGroupNumber(max+1);
+			}
+			HAspect.logger.info(HAspect.logMsg+max);	
+			
+		} else { // 자식글, 답글 : 글순서, 글레벨
+			
+			HashMap<String, Integer> hmap=new HashMap<String, Integer>();
+			hmap.put("groupNumber", groupNumber);
+			hmap.put("sequenceNumber", sequenceNumber);
+			
+			int check=fileBoardDao.fileBoardWriteNumber(hmap);//fileBoard_update_number
+			HAspect.logger.info(HAspect.logMsg+check);	
+			
+			sequenceNumber+=1;
+			sequenceLevel+=1;
+			
+			fileBoardDto.setSequenceNumber(sequenceNumber);
+			fileBoardDto.setSequenceLevel(sequenceLevel);
+		}
+		
+	}
+		
+	//read의 경우 try-catch를 aop로 처리하기떄문에 rolback에 대한 설정을 따로 해줘야하는데 이걸 같이 할거임
+	
 //		DiskFileItemFactory factory=new DiskFileItemFactory();		// 파일 보관 객체
 //		ServletFileUpload upload=new ServletFileUpload(factory);			// 요청 처리 객체
 //		List<FileItem> list=upload.parseRequest(request);
@@ -160,5 +237,5 @@ public class FileBoardServiceImp implements FileBoardService {
 //		
 //		request.setAttribute("check", check);
 //		
-	}
+	
 }

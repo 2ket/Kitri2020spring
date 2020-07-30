@@ -20,25 +20,25 @@
 		<result column="PATH" property="path"/>
 		<result column="FILE_SIZE" property="fileSize"/>
 	</resultMap>
-	<!-- 
+	
 	<insert id="fileBoard_insert">
 		insert into board (BOARD_NUMBER, WRITER, SUBJECT, EMAIL, CONTENT, PASSWORD, WRITE_DATE, READ_COUNT, GROUP_NUMBER, SEQUENCE_NUMBER, SEQUENCE_LEVEL) 
 		values(board_num_seq.nextval, #{writer}, #{subject}, #{email}, #{content}, #{password}, #{writeDate}, #{readCount}, #{groupNumber}, #{sequenceNumber}, #{sequenceLevel})
 	</insert>
-	<insert id="fileBoard_insert_file">
+	
+	<insert id="fileBoard_insert_file"><!-- parameterType="com.java.fileBoard.dto.FileBoardDto" -->
 		insert into board (BOARD_NUMBER, WRITER, SUBJECT, EMAIL, CONTENT, PASSWORD, WRITE_DATE, READ_COUNT, GROUP_NUMBER, SEQUENCE_NUMBER, SEQUENCE_LEVEL, FILE_NAME, PATH, FILE_SIZE) 
 		values(board_num_seq.nextval, #{writer}, #{subject}, #{email}, #{content}, #{password}, #{writeDate}, #{readCount}, #{groupNumber}, #{sequenceNumber}, #{sequenceLevel}, #{fileName}, #{path}, #{fileSize})
 	</insert>
-	 -->
-	<!-- <select id="fileBoard_maxGroup" resultType="int">
-		select max(group_number) as max_group_num from board
-	</select> -->
-	<!-- 
-	<update id="fileBoard_update_number" parameterType="java.util.Map">
+	<select id="fileBoard_maxGroup" resultType="int">
+		select nvl(max(group_number)) as max_group_num from board
+	</select>
+	<update id="fileBoard_update_number" parameterType="java.util.HashMap">
 		<![CDATA[
 		update board set sequence_number=sequence_number+1 where group_number=#{groupNumber} and sequence_number > #{sequenceNumber}
 		]]>
 	</update>
+	<!-- 
 	<select id="fileBoard_getCount" resultType="int">
 		select nvl(count(*),0) from board
 	</select>
