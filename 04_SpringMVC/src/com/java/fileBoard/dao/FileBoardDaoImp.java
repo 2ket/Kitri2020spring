@@ -51,4 +51,9 @@ public class FileBoardDaoImp implements FileBoardDao {
 		hMap.put("endRow", endRow);
 		return sqlSessionTemplate.selectList("fileBoard_list", hMap);
 	}
+	@Override
+	public FileBoardDto fileBoardRead(int boardNumber) {
+		sqlSessionTemplate.update("fileBoard_view", boardNumber);
+		return sqlSessionTemplate.selectOne("fileBoard_read", boardNumber);
+	}
 }

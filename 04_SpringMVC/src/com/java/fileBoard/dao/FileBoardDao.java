@@ -12,5 +12,6 @@ public interface FileBoardDao {
 	public int fileBoardWriteOk(FileBoardDto fileBoardDto);
 	public int fileBoardCount();
 	public List<FileBoardDto> fileBoardList(int startRow, int endRow);
+	public FileBoardDto fileBoardRead(int boardNumber);
 
 }

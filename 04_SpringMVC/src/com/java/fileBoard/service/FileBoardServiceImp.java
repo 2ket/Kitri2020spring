@@ -188,7 +188,21 @@ public class FileBoardServiceImp implements FileBoardService {
 		HttpServletRequest request=(HttpServletRequest)map.get("request");
 		
 		int boardNumber=Integer.parseInt(request.getParameter("boardNumber"));
-		HAspect.logger.info(HAspect.logMsg+boardNumber);
+		int pageNumber=Integer.parseInt(request.getParameter("pageNumber"));
+		
+		HAspect.logger.info(HAspect.logMsg+boardNumber+"\t"+pageNumber);
+		
+		FileBoardDto fileBoardDto=fileBoardDao.fileBoardRead(boardNumber);
+		HAspect.logger.info(HAspect.logMsg + "fileBoardDto : " + fileBoardDto);
+		
+		if(fileBoardDto.getFileSize()!=0) {
+			int idx=fileBoardDto.getFileName().indexOf('_')+1;
+			fileBoardDto.setFileName(fileBoardDto.getFileName().substring(idx));
+		}
+		
+		
+		mav.addObject("boardDto", fileBoardDto);
+		mav.setViewName("fileBoard/read");
 	}
 	
 	
