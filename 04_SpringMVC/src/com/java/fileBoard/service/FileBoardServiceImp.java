@@ -202,6 +202,7 @@ public class FileBoardServiceImp implements FileBoardService {
 			int idx=fileBoardDto.getFileName().indexOf('_')+1;
 			fileBoardDto.setFileName(fileBoardDto.getFileName().substring(idx));
 		}
+		mav.addObject("pageNumber", pageNumber);
 		mav.addObject("boardDto", fileBoardDto);
 		mav.setViewName("fileBoard/read");
 	}
@@ -253,10 +254,83 @@ public class FileBoardServiceImp implements FileBoardService {
 				e.printStackTrace();
 			}
 		}
+	}
+	@Override
+	public void fileBoardDelete(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest)map.get("request");
+		
+		int boardNumber=Integer.parseInt(request.getParameter("boardNumber"));
+		int pageNumber=Integer.parseInt(request.getParameter("pageNumber"));
+		mav.addObject("boardNumber", boardNumber);
+		mav.addObject("pageNumber", pageNumber);
+
+		mav.setViewName("fileBoard/delete");
+	}
+	@Override
+	public void fileBoardDeleteOk(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest)map.get("request");
+		
+		int boardNumber=Integer.parseInt(request.getParameter("boardNumber"));
+		int pageNumber=Integer.parseInt(request.getParameter("pageNumber"));
+		
+		Map<String, Object> hmap=new HashMap<String, Object>();
+		hmap.put("boardNumber", boardNumber);
+		hmap.put("password", request.getParameter("password"));
+		
+		//파일경로 뽑아오기위한 Dto 삭제전에 불러오기
+		FileBoardDto dto=fileBoardDao.fileBoardRead(boardNumber);
+		
+		int check=fileBoardDao.fileBoardDeleteOk(hmap);//DB삭제
+		
+		if(check>0 && dto.getFileName()!=null) {	//dto에 파일명이 있으면
+			File file=new File(dto.getPath());		//파일경로의 파일 찾아서
+			if(file.exists() && file.isFile()) file.delete();//그게 존재하는 파일이면 삭제
+		}
 		
 		
+		mav.addObject("pageNumber", pageNumber);
+		mav.addObject("check", check);
+		mav.setViewName("fileBoard/deleteOk");
+	}
+	
+	@Override
+	public void fileBoardUpdate(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest)map.get("request");
+		
+		int boardNumber=Integer.parseInt(request.getParameter("boardNumber"));
+		int pageNumber=Integer.parseInt(request.getParameter("pageNumber"));
+		
+		FileBoardDto dto=fileBoardDao.fileBoardRead(boardNumber);
+		
+		mav.addObject("boardDto", dto);
+		mav.addObject("boardNumber", boardNumber);
+		mav.addObject("pageNumber", pageNumber);
+		mav.setViewName("fileBoard/update");
+	}
+	@Override
+	public void fileBoardUpdateOk(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest)map.get("request");
+		int boardNumber=Integer.parseInt(request.getParameter("boardNumber"));
+		int pageNumber=Integer.parseInt(request.getParameter("pageNumber"));
+		int fileDelCheck=Integer.parseInt(request.getParameter("fileDelCheck"));
+		
+		FileBoardDto upadteDto = (FileBoardDto)map.get("fileBoardDto");
 		
 		
+		HAspect.logger.info(HAspect.logMsg+upadteDto+"fileDelCheck : "+fileDelCheck);
+		//파일경로 뽑아오기위한 Dto 삭제전에 불러오기
+		FileBoardDto dto=fileBoardDao.fileBoardRead(boardNumber);
+		if(fileDelCheck==1 && dto.getFileName()!=null) {	//dto에 파일명이 있으면
+			File file=new File(dto.getPath());				//파일경로의 파일 찾아서
+			if(file.exists() && file.isFile()) file.delete();//그게 존재하는 파일이면 삭제
+		}
+//		if(fileDelCheck)
 		
+		mav.addObject("pageNumber", pageNumber);
+		mav.setViewName("fileBoard/updateOk");
 	}
 }

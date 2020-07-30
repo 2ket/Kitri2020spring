@@ -60,4 +60,8 @@ public class FileBoardDaoImp implements FileBoardDao {
 	public FileBoardDto fileBoardSelect(int boardNumber) {
 		return sqlSessionTemplate.selectOne("fileBoard_read", boardNumber);
 	}
+	@Override
+	public int fileBoardDeleteOk(Map<String, Object> hmap) {
+		return sqlSessionTemplate.delete("fileBoard_delete", hmap);
+	}
 }

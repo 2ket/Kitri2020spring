@@ -55,7 +55,6 @@
 	<select id="fileBoard_read" parameterType="int" resultMap="fileBoardDto">
 		select * from board where board_number=#{boardNumber}
 	</select>
-	<!-- 
 	<delete id="fileBoard_delete" parameterType="java.util.Map">
 		delete from board where board_number=#{boardNumber} and password=#{password}
 	</delete>
@@ -71,5 +70,5 @@
 	<update id="fileBoard_update_file">
 		update board set email=#{email}, subject=#{subject}, content=#{content}, file_name=#{fileName}, path=#{path}, file_size=#{fileSize} where board_number=#{boardNumber}
 	</update>
-	-->
+	
 </mapper>
