@@ -28,12 +28,28 @@ public class FileBoardController extends MultiActionController {
 		return mav;
 	}
 	
-	public void fileBoardWriteOk(HttpServletRequest request, HttpServletResponse response, FileBoardDto fileBoardDto) {
+	public ModelAndView fileBoardWriteOk(HttpServletRequest request, HttpServletResponse response, FileBoardDto fileBoardDto) {
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("request", request);
 		mav.addObject("fileBoardDto", fileBoardDto);
 		
 		fileBoardService.fileBoardWriteOk(mav);
+		return mav;
+	}
+	
+	public ModelAndView fileBoardList(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		
+		fileBoardService.fileBoardList(mav);
+		return mav;
+	}
+	public void fileBoardRead(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+//		mav.addObject("response", response);//다운로드 작업을 위해
+		
+		fileBoardService.fileBoardRead(mav);
 	}
 	
 }

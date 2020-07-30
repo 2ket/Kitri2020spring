@@ -30,5 +30,7 @@
 	<br><br>
 	<h3>파일게시판</h3>
 	<a href="${root }/fileBoard/write.do">글쓰기</a>
+	<br>
+	<a href="${root }/fileBoard/list.do">리스트</a>
 </body>
 </html>

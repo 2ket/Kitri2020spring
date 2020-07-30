@@ -8,4 +8,7 @@ public interface FileBoardService {
 
 	public void fileBoardWriteOk(ModelAndView mav);
 
+	public void fileBoardList(ModelAndView mav);
+
+	public void fileBoardRead(ModelAndView mav);
 }

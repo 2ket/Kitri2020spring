@@ -10,6 +10,8 @@
          <props>
             <prop key="/fileBoard/write.do">fileBoardWrite</prop>
             <prop key="/fileBoard/writeOk.do">fileBoardWriteOk</prop>
+            <prop key="/fileBoard/list.do">fileBoardList</prop>
+            <prop key="/fileBoard/read.do">fileBoardRead</prop>
          </props>
       </property>
    </bean>

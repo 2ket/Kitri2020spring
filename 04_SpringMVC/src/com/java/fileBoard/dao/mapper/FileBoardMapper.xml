@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="com.java.fileBoard.dao.mapper.FileBoardMapper">
-	<resultMap type="com.java.fileBoard.dto.FileBoardDto" id="fileBoard_dto">
+	<resultMap type="com.java.fileBoard.dto.FileBoardDto" id="fileBoardDto">
 		<result column="BOARD_NUMBER" property="boardNumber"/>
 		<result column="WRITER" property="writer"/>
 		<result column="SUBJECT" property="subject"/>
@@ -31,29 +31,29 @@
 		values(board_num_seq.nextval, #{writer}, #{subject}, #{email}, #{content}, #{password}, #{writeDate}, #{readCount}, #{groupNumber}, #{sequenceNumber}, #{sequenceLevel}, #{fileName}, #{path}, #{fileSize})
 	</insert>
 	<select id="fileBoard_maxGroup" resultType="int">
-		select nvl(max(group_number)) as max_group_num from board
+		select nvl(max(group_number),0) as max_group_num from board
 	</select>
 	<update id="fileBoard_update_number" parameterType="java.util.HashMap">
 		<![CDATA[
 		update board set sequence_number=sequence_number+1 where group_number=#{groupNumber} and sequence_number > #{sequenceNumber}
 		]]>
 	</update>
-	<!-- 
 	<select id="fileBoard_getCount" resultType="int">
 		select nvl(count(*),0) from board
 	</select>
 	
-	<select id="fileBoard_list" parameterType="java.util.Map" resultMap="fileBoard_dto">
+	<select id="fileBoard_list" parameterType="java.util.Map" resultMap="fileBoardDto">
 		<![CDATA[
 			select b.* From (select rownum rnum, a.* From (select * from board order by group_number desc, sequence_number asc) a) b where b.rnum>=#{startRow} and b.rnum<=#{endRow}
 		]]>
 	</select>
+	<!-- 
 	<update id="fileBoard_view" parameterType="int">
 		<![CDATA[
 		update board set read_count=read_count+1 where board_number=#{boardNumber}
 		]]>
 	</update>
-	<select id="fileBoard_read" parameterType="int" resultMap="fileBoard_dto">
+	<select id="fileBoard_read" parameterType="int" resultMap="fileBoardDto">
 		select * from board where board_number=#{boardNumber}
 	</select>
 	<delete id="fileBoard_delete" parameterType="java.util.Map">
@@ -70,5 +70,6 @@
 	</update>
 	<update id="fileBoard_update_file">
 		update board set email=#{email}, subject=#{subject}, content=#{content}, file_name=#{fileName}, path=#{path}, file_size=#{fileSize} where board_number=#{boardNumber}
-	</update> -->
+	</update>
+	-->
 </mapper>

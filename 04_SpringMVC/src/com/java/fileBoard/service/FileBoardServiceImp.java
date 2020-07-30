@@ -4,9 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -77,7 +79,7 @@ public class FileBoardServiceImp implements FileBoardService {
 		//log 결과 : boardNumber=0, writer=kkk, subject=kik, email=abc@abc.com, content=kkk, password=kkk, writeDate=Thu Jul 30 09:18:50 KST 2020, readCount=0, groupNumber=1, sequenceNumber=0, sequenceLevel=0, fileName=null, path=null, fileSize=0
 		
 		MultipartFile upFile=request.getFile("file");
-		int check=0;
+		
 		if(upFile.getSize()!=0) {
 			//저장 경로, 파일명, 사이즈
 			String fileName=Long.toString(System.currentTimeMillis())+"_"+upFile.getOriginalFilename();
@@ -100,15 +102,17 @@ public class FileBoardServiceImp implements FileBoardService {
 					e.printStackTrace();
 				}
 			}
-			HAspect.logger.info(HAspect.logMsg+fileBoardDto);	
-			check=fileBoardDao.fileBoardWriteOkFile(fileBoardDto);
-		}else {
-			check=fileBoardDao.fileBoardWriteOk(fileBoardDto);
+			
 		}
+		HAspect.logger.info(HAspect.logMsg+fileBoardDto);	
+		int check=fileBoardDao.fileBoardWriteOk(fileBoardDto);
 		
 		HAspect.logger.info(HAspect.logMsg+check);	
-		
+		mav.addObject("check", check);
+		mav.setViewName("fileBoard/writeOk");
 	}
+	
+	
 	
 	public void writeNumber(FileBoardDto fileBoardDto) {
 		// 그룹번호(ROOT), 글순서(자식), 글 레벨(자식)
@@ -120,7 +124,6 @@ public class FileBoardServiceImp implements FileBoardService {
 	
 		if (boardNumber == 0) { // root.
 			int max=fileBoardDao.fileBoardGroupNumberMax();
-					//session.selectOne("fileBoard_maxGroup");
 			
 			if(max!=0) {
 				fileBoardDto.setGroupNumber(max+1);
@@ -144,98 +147,49 @@ public class FileBoardServiceImp implements FileBoardService {
 		}
 		
 	}
-		
-	//read의 경우 try-catch를 aop로 처리하기떄문에 rolback에 대한 설정을 따로 해줘야하는데 이걸 같이 할거임
 	
-//		DiskFileItemFactory factory=new DiskFileItemFactory();		// 파일 보관 객체
-//		ServletFileUpload upload=new ServletFileUpload(factory);			// 요청 처리 객체
-//		List<FileItem> list=upload.parseRequest(request);
-//		Iterator<FileItem> iter=list.iterator();
-//		
-//		BoardDto boardDto=new BoardDto();
-//		HashMap<String, String> dataMap=new HashMap<String, String>();
-//		
-//		while(iter.hasNext()) {
-//			FileItem fileItem=iter.next();
-//			if(fileItem.isFormField()) {	// text(유저 입력이나 hidden속성으로 넣은 text형태들 : writer, groupNumber, subject...
-//				//필드 이름 찍기
-////				String name=fileItem.getFieldName();
-////				logger.info(logMsg+ "text : "+name);
-//				//맵방식이 아닌 기존의 경우 아래와 같이 필드마다 dto에 넣어줘야함
-////				if(fileItem.getFieldName().equals("boardNumber")) {
-////					boardDto.setBoardNumber(Integer.parseInt(fileItem.getString()));
-////				}
-//				
-//				String name=fileItem.getFieldName();
-//				String value=fileItem.getString("utf-8");
-//				logger.info(logMsg+name+":"+value);
-//				
-//				dataMap.put(name, value);
-//				
-//			}else {							// text가 아닌 것들(파일관련) : file
-////				String name=fileItem.getFieldName();
-////				logger.info(logMsg+ "binary : "+name+", "+fileItem.getName()+", "+fileItem.getSize());
-//				if(fileItem.getFieldName().equals("file")) {
-//					//파일명 fileItem.getName() / 파일사이즈 fileItem.getSize() / getInputStream()
-//					if(fileItem.getName()==null || fileItem.getName().equals("")) continue;
-//					
-//					upload.setFileSizeMax(1024*1024*10); 	// byte*kb*mb*gb
-//					String fileName=System.currentTimeMillis()+"_"+fileItem.getName();
-//					
-//					//절대경로(안씀)
-////					String dir="C:\\Users\\user\\git\\kitri2020mvc\\MVCHomepage\\WebContent\\pds";
-//					String dir="C:\\Kitri2020\\mvc\\workspace\\MyBatisHomepage\\WebContent\\pds";
-//					File file=new File(dir, fileName);
-//					
-//					//톰캣 실제 서버경로(웹서버에 직접 올리면 부피가 너무 커짐. 따로 ftp서버를 둬야함.
-////					String dir=request.getServletContext().getRealPath("\\pds\\");
-////					logger.info(logMsg+dir);
-//					
-//					//폴더 생성해주기
-////					File dir=new File("c:\\pds\\");
-////					dir.mkdir();
-////					File file=null;
-////					if(dir.exists() && dir.isDirectory()) {
-////						file=new File(dir, fileName);
-////						
-////					}
-//					
-////					logger.info(logMsg+file.getAbsolutePath());
-//					BufferedInputStream bis=null;	// 클라이언트의 파일을 읽어서
-//					BufferedOutputStream bos=null; 	// 서버에 저장
-//					try {
-//						bis=new BufferedInputStream(fileItem.getInputStream(), 1024);
-//						bos=new BufferedOutputStream(new FileOutputStream(file), 1024);
-//						
-//						while(true) {
-//							int data=bis.read();
-//							if(data==-1) break;
-//							
-//							bos.write(data);
-//						}
-//						bos.flush();
-//					}catch(IOException e) {
-//						e.printStackTrace();
-//					}finally {
-//						if(bis!=null) bis.close();
-//						if(bos!=null) bos.close();
-//					}
-//					boardDto.setFileName(fileName);
-//					boardDto.setFileSize(fileItem.getSize());
-//					boardDto.setPath(file.getAbsolutePath());
-//				}
-//				
-//			}
-//			
-//		}
-//		boardDto.setDataMap(dataMap);
-//		boardDto.setWriteDate(new Date());
-//		logger.info(logMsg+boardDto.toString());
-//		
-//		int check=BoardDao.getInstance().insert(boardDto);
-//		logger.info(logMsg+check);
-//		
-//		request.setAttribute("check", check);
-//		
+	@Override
+	public void fileBoardList(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest)map.get("request");
+		//페이징
+		String pageNumber=request.getParameter("pageNumber");
+		if(pageNumber==null) pageNumber="1";
+		
+		int currentPage=Integer.parseInt(pageNumber);	//요청한 페이지
+		
+		int boardSize=10;	//[1] start:1, end:10 [2] s:11, e:20
+		
+		int startRow=(currentPage-1)*boardSize+1;		// 시작번호 1 (1~10)
+		int endRow=currentPage*boardSize;				// 끝번호 10
+
+		//count 사용해서 글이 아예 없는경우 페이징 안보이게
+		int count=fileBoardDao.fileBoardCount();
+		HAspect.logger.info(HAspect.logMsg+count);	
+		List<FileBoardDto> boardList=null;
+		if(count>0) {
+			//startRow, endRow
+			boardList=fileBoardDao.fileBoardList(startRow, endRow);
+			HAspect.logger.info(HAspect.logMsg+boardList.size());
+		}
+		
+		mav.addObject("boardList", boardList);
+		//db에 있는 애들 없는 애들 구분 잘해서 넘겨야 함
+		mav.addObject("boardSize", boardSize);
+		mav.addObject("currentPage", currentPage);
+		mav.addObject("count", count);
+		mav.setViewName("fileBoard/list");
+	}
+	
+	//read의 경우 try-catch를 aop로 처리하기떄문에 rolback에 대한 설정을 따로 해줘야하는데 이걸 같이 할거임
+	@Override
+	public void fileBoardRead(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest)map.get("request");
+		
+		int boardNumber=Integer.parseInt(request.getParameter("boardNumber"));
+		HAspect.logger.info(HAspect.logMsg+boardNumber);
+	}
+	
 	
 }
