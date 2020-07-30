@@ -80,11 +80,11 @@ public class FileBoardController extends MultiActionController {
 		fileBoardService.fileBoardUpdate(mav);
 		return mav;
 	}
-	public void fileBoardUpdateOk(HttpServletRequest request, HttpServletResponse response, FileBoardDto fileBoardDto) {
+	public ModelAndView fileBoardUpdateOk(HttpServletRequest request, HttpServletResponse response, FileBoardDto fileBoardDto) {
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("request", request);
 		mav.addObject("fileBoardDto", fileBoardDto);
 		fileBoardService.fileBoardUpdateOk(mav);
-		//return mav;
+		return mav;
 	}
 }

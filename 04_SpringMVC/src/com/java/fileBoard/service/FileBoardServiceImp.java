@@ -116,6 +116,34 @@ public class FileBoardServiceImp implements FileBoardService {
 	}
 	
 	
+	public void uploadFile(MultipartHttpServletRequest request, FileBoardDto fileBoardDto) {
+		MultipartFile upFile=request.getFile("file");
+		
+		if(upFile.getSize()!=0) {
+			//저장 경로, 파일명, 사이즈
+			String fileName=Long.toString(System.currentTimeMillis())+"_"+upFile.getOriginalFilename();
+			long fileSize=upFile.getSize();
+			
+			File path=new File("C:\\pds\\");
+			
+			path.mkdir();
+			
+			if(path.exists() && path.isDirectory()) {	//혹은 isFile() 써도 됨
+				File file=new File(path, fileName);
+				
+				try {
+					upFile.transferTo(file);
+					
+					fileBoardDto.setPath(file.getAbsolutePath());
+					fileBoardDto.setFileName(fileName);
+					fileBoardDto.setFileSize(fileSize);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+		}
+	}
 	
 	public void writeNumber(FileBoardDto fileBoardDto) {
 		// 그룹번호(ROOT), 글순서(자식), 글 레벨(자식)
@@ -313,23 +341,28 @@ public class FileBoardServiceImp implements FileBoardService {
 	@Override
 	public void fileBoardUpdateOk(ModelAndView mav) {
 		Map<String, Object> map=mav.getModelMap();
-		HttpServletRequest request=(HttpServletRequest)map.get("request");
+		MultipartHttpServletRequest request=(MultipartHttpServletRequest)map.get("request");
 		int boardNumber=Integer.parseInt(request.getParameter("boardNumber"));
 		int pageNumber=Integer.parseInt(request.getParameter("pageNumber"));
 		int fileDelCheck=Integer.parseInt(request.getParameter("fileDelCheck"));
 		
 		FileBoardDto upadteDto = (FileBoardDto)map.get("fileBoardDto");
 		
+		uploadFile(request, upadteDto);
 		
 		HAspect.logger.info(HAspect.logMsg+upadteDto+"fileDelCheck : "+fileDelCheck);
-		//파일경로 뽑아오기위한 Dto 삭제전에 불러오기
+		//파일경로 뽑아오기위한 Dto 수정전에 불러오기
 		FileBoardDto dto=fileBoardDao.fileBoardRead(boardNumber);
-		if(fileDelCheck==1 && dto.getFileName()!=null) {	//dto에 파일명이 있으면
-			File file=new File(dto.getPath());				//파일경로의 파일 찾아서
+		if(fileDelCheck==1 && dto.getPath()!=null) {	//파일삭제명령
+			File file=new File(dto.getPath());		//파일경로의 파일 찾아서
 			if(file.exists() && file.isFile()) file.delete();//그게 존재하는 파일이면 삭제
 		}
-//		if(fileDelCheck)
 		
+		int check=fileBoardDao.fileBoardUpdateOk(upadteDto, fileDelCheck);
+		
+		HAspect.logger.info(HAspect.logMsg+"수정결과 : "+check);
+		
+		mav.addObject("check", check);
 		mav.addObject("pageNumber", pageNumber);
 		mav.setViewName("fileBoard/updateOk");
 	}

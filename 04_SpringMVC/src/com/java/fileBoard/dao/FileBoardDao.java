@@ -16,5 +16,6 @@ public interface FileBoardDao {
 	public FileBoardDto fileBoardRead(int boardNumber);
 	public FileBoardDto fileBoardSelect(int boardNumber);
 	public int fileBoardDeleteOk(Map<String, Object> hmap);
+	public int fileBoardUpdateOk(FileBoardDto upadteDto, int fileDelCheck);
 
 }

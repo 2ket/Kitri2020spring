@@ -64,4 +64,14 @@ public class FileBoardDaoImp implements FileBoardDao {
 	public int fileBoardDeleteOk(Map<String, Object> hmap) {
 		return sqlSessionTemplate.delete("fileBoard_delete", hmap);
 	}
+	@Override
+	public int fileBoardUpdateOk(FileBoardDto updateDto, int fileDelCheck) {
+		if(fileDelCheck==1&&updateDto.getFileName()==null) {
+			return sqlSessionTemplate.update("fileBoard_update_delFile", updateDto);
+		}else if(fileDelCheck==1&&updateDto.getFileName()!=null) {
+			return sqlSessionTemplate.update("fileBoard_update_file", updateDto);
+		}
+		//그외 삭제명령 없이 파일변경없을때
+		return sqlSessionTemplate.update("fileBoard_update", updateDto);
+	}
 }
