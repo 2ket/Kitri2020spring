@@ -364,6 +364,7 @@ public class FileBoardServiceImp implements FileBoardService {
 		
 		mav.addObject("check", check);
 		mav.addObject("pageNumber", pageNumber);
+		mav.addObject("boardNumber",boardNumber);
 		mav.setViewName("fileBoard/updateOk");
 	}
 }
