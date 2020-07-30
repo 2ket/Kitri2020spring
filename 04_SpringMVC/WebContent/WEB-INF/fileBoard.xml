@@ -12,6 +12,7 @@
             <prop key="/fileBoard/writeOk.do">fileBoardWriteOk</prop>
             <prop key="/fileBoard/list.do">fileBoardList</prop>
             <prop key="/fileBoard/read.do">fileBoardRead</prop>
+            <prop key="/fileBoard/downLoad.do">fileBoardDownLoad</prop>
          </props>
       </property>
    </bean>

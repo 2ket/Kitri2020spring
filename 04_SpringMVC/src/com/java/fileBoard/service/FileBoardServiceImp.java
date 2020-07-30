@@ -1,6 +1,9 @@
 package com.java.fileBoard.service;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
@@ -199,11 +202,61 @@ public class FileBoardServiceImp implements FileBoardService {
 			int idx=fileBoardDto.getFileName().indexOf('_')+1;
 			fileBoardDto.setFileName(fileBoardDto.getFileName().substring(idx));
 		}
-		
-		
 		mav.addObject("boardDto", fileBoardDto);
 		mav.setViewName("fileBoard/read");
 	}
 	
-	
+	@Override
+	public void fileBoardDownLoad(ModelAndView mav) {
+		Map<String, Object> map=mav.getModelMap();
+		HttpServletRequest request=(HttpServletRequest)map.get("request");
+		HttpServletResponse response=(HttpServletResponse)map.get("response");
+		
+		int boardNumber=Integer.parseInt(request.getParameter("boardNumber"));
+		HAspect.logger.info(HAspect.logMsg+boardNumber);
+		
+		FileBoardDto boardDto=fileBoardDao.fileBoardSelect(boardNumber);
+		HAspect.logger.info(HAspect.logMsg+boardDto);
+		
+		
+		BufferedInputStream bis=null;
+		BufferedOutputStream bos=null;
+		try {
+			int index=boardDto.getFileName().indexOf('_')+1;
+			String fileName=boardDto.getFileName().substring(index);
+			String utfName=new String(fileName.getBytes("utf-8"), "ISO-8859-1");
+			long fileSize=boardDto.getFileSize();
+			String path=boardDto.getPath();
+			
+			//content_Disposition : 다운로드 할때 나오는 그 창 띄우게 하는거
+			response.setHeader("content-Disposition", "attachment;filename="+utfName);//정해진 고정 문구니까 외우기
+			//한글 깨짐 위해 utf-8로 인코딩 해줘야한다. 혹은 //URLEncoder.encode(fileName, "utf-8")넣어준다.
+			response.setContentType("application/octet-stream");	//8진수(octet) : binary형태일때
+			response.setContentLengthLong(fileSize);
+			
+		
+			bis=new BufferedInputStream(new FileInputStream(path), 1024);
+			bos=new BufferedOutputStream(response.getOutputStream(), 1024);
+			while(true) {
+				int data=bis.read();
+				if(data==-1) break;
+				bos.write(data);
+			}
+			bos.flush();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(bis!=null) bis.close();
+				if(bos!=null) bos.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
+		
+		
+	}
 }

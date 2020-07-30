@@ -56,4 +56,8 @@ public class FileBoardDaoImp implements FileBoardDao {
 		sqlSessionTemplate.update("fileBoard_view", boardNumber);
 		return sqlSessionTemplate.selectOne("fileBoard_read", boardNumber);
 	}
+	@Override
+	public FileBoardDto fileBoardSelect(int boardNumber) {
+		return sqlSessionTemplate.selectOne("fileBoard_read", boardNumber);
+	}
 }

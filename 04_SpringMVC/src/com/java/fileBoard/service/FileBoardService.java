@@ -11,4 +11,6 @@ public interface FileBoardService {
 	public void fileBoardList(ModelAndView mav);
 
 	public void fileBoardRead(ModelAndView mav);
+	
+	public void fileBoardDownLoad(ModelAndView mav);
 }
