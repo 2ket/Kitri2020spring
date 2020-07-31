@@ -5,22 +5,17 @@ import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.java.fileBoard.dto.FileBoardDto;
 
+@Component
 public class FileBoardDaoImp implements FileBoardDao {
-
+	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 
-	public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate) {
-		this.sqlSessionTemplate = sqlSessionTemplate;
-	}
-
-	public FileBoardDaoImp() {	}
-
-	public FileBoardDaoImp(SqlSessionTemplate sqlSessionTemplate) {
-		this.sqlSessionTemplate = sqlSessionTemplate;
-	}
+	
 
 	@Override
 	public int fileBoardGroupNumberMax() {

@@ -19,7 +19,6 @@
         <param-value>
            /WEB-INF/SpringController-servlet.xml
            /WEB-INF/mybatis.xml
-           /WEB-INF/fileBoard.xml
         </param-value>
      </init-param>
      <load-on-startup>1</load-on-startup>
@@ -37,7 +36,6 @@
      <param-value>
         /WEB-INF/SpringController-servlet.xml
         /WEB-INF/mybatis.xml
-        /WEB-INF/fileBoard.xml
      </param-value>
   </context-param>
   

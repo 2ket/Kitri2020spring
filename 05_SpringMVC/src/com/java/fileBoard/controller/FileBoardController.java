@@ -3,23 +3,22 @@ package com.java.fileBoard.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
 import com.java.fileBoard.dto.FileBoardDto;
 import com.java.fileBoard.service.FileBoardService;
 
-public class FileBoardController extends MultiActionController {
+@Controller
+public class FileBoardController{
+	@Autowired
 	private FileBoardService fileBoardService;
 
-	public void setFileBoardService(FileBoardService fileBoardService) {
-		this.fileBoardService = fileBoardService;
-	}
-	public FileBoardController() {	}
-	public FileBoardController(FileBoardService fileBoardService) {
-		this.fileBoardService = fileBoardService;
-	}
-
+	@RequestMapping(value="/fileBoard/write.do")
 	public ModelAndView fileBoardWrite(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("request", request);
@@ -27,7 +26,7 @@ public class FileBoardController extends MultiActionController {
 		fileBoardService.fileBoardWrite(mav);
 		return mav;
 	}
-	
+	@RequestMapping("/fileBoard/writeOk.do")
 	public ModelAndView fileBoardWriteOk(HttpServletRequest request, HttpServletResponse response, FileBoardDto fileBoardDto) {
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("request", request);
@@ -36,7 +35,7 @@ public class FileBoardController extends MultiActionController {
 		fileBoardService.fileBoardWriteOk(mav);
 		return mav;
 	}
-	
+	@RequestMapping(value="/fileBoard/list.do", method=RequestMethod.GET)
 	public ModelAndView fileBoardList(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("request", request);
@@ -44,6 +43,7 @@ public class FileBoardController extends MultiActionController {
 		fileBoardService.fileBoardList(mav);
 		return mav;
 	}
+	@RequestMapping("fileBoardRead")
 	public ModelAndView fileBoardRead(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("request", request);
@@ -51,6 +51,7 @@ public class FileBoardController extends MultiActionController {
 		fileBoardService.fileBoardRead(mav);
 		return mav;
 	}
+	@RequestMapping("fileBoardDownLoad")
 	public void fileBoardDownLoad(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("request", request);
@@ -58,7 +59,7 @@ public class FileBoardController extends MultiActionController {
 		
 		fileBoardService.fileBoardDownLoad(mav);
 	}
-	
+	@RequestMapping("fileBoardDelete")
 	public ModelAndView fileBoardDelete(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("request", request);
@@ -66,6 +67,7 @@ public class FileBoardController extends MultiActionController {
 		fileBoardService.fileBoardDelete(mav);
 		return mav;
 	}
+	@RequestMapping("fileBoardDeleteOk")
 	public ModelAndView fileBoardDeleteOk(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("request", request);
@@ -73,6 +75,7 @@ public class FileBoardController extends MultiActionController {
 		fileBoardService.fileBoardDeleteOk(mav);
 		return mav;
 	}
+	@RequestMapping("fileBoardUpdate")
 	public ModelAndView fileBoardUpdate(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("request", request);
@@ -80,6 +83,7 @@ public class FileBoardController extends MultiActionController {
 		fileBoardService.fileBoardUpdate(mav);
 		return mav;
 	}
+	@RequestMapping("fileBoardUpdateOk")
 	public ModelAndView fileBoardUpdateOk(HttpServletRequest request, HttpServletResponse response, FileBoardDto fileBoardDto) {
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("request", request);
