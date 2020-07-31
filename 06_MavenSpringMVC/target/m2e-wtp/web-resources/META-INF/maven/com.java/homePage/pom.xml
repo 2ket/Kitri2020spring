@@ -153,6 +153,8 @@
 		</dependency>
 
 	<!-- DB - oracle(미지원:tomcat server에 직접 넣을거임), Mybatis, SpringMybatis, SpringJDBC-->
+			<!-- Oracle:C:\Kitri2020\spring\apache-tomcat-9.0.35\bin 에 ojdbc6.jar 추가 -->
+		
 			<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
 		<dependency>
 		    <groupId>org.springframework</groupId>
