@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+
+	<!-- Spring DB Driver -->
+	<bean id="driverManagerDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+		<property name="username" value="mvc"/>
+		<property name="password" value="1234"/>
+	</bean>
+	
+	<!-- Mybatis : sqlSessionFactoryBean-->
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="driverManagerDataSource"/>
+		<!-- mapper.xml이 한개뿐일때는 mapperLoactions(String) 으로 value값 바로 입력되지만, -->
+		<!-- <property name="mapperLocations" value="classpath:com/java/member/dao/mapper/MemberMapper.xml"/> -->
+		
+		<!-- mapper.xml이 두개 이상이면 mapperLoactions(List) 로 List에 담아서  설정해줘야한다.-->
+		<property name="mapperLocations" >
+			<list>
+				<value>classpath:com/java/member/dao/mapper/MemberMapper.xml</value>
+				<value>classpath:com/java/fileBoard/dao/mapper/FileBoardMapper.xml</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Mybatis : sqlSessionTemplate -->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate"><!-- Template으로 던져야해서 -->
+		<constructor-arg ref="sqlSessionFactoryBean"/>
+	</bean>
+	
+	<!-- Transaction 공통클래스 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="driverManagerDataSource"></property>
+	</bean>
+	
+	<!-- Transaction AOP -->
+	<!-- 필요한 함수에는 aop를 넣어주겠다. 키워드는 Tx가 붙어야함(트랜잭션 약어). namespace가서 tx 와 aop 체크 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" propagation="REQUIRED" rollback-for="Exception"/><!-- 모든 메소드가 tx를 반드시 거치게 한다. -->
+		</tx:attributes>
+	</tx:advice>
+	<!-- propagation="REQUIRED" : 이미 하나의 트랜잭션이 존재하면 지원하고, 없다면 새로 지원 -->
+	
+	
+	<aop:config>
+		<aop:pointcut expression="within(com.java..*)" id="txPublicMethod"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPublicMethod"/>
+	</aop:config>
+	
+</beans>

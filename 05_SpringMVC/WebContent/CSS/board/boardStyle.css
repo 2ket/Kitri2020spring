@@ -1,0 +1,38 @@
+#board {
+	border: solid 0px blue;
+	width: 600px;
+	margin: 200px auto;
+}
+
+#board div>div {
+	border: solid 1px black;
+	margin-top: -1px;
+}
+
+#board #contents {
+	
+}
+
+#contents textarea {
+	width: 450px;
+	height: 190px;
+}
+
+#board div>label {
+	width: 100px;
+	height: 30px;
+	text-align: center;
+	display: block;
+	float: left;
+	line-height: 30px;
+	border-right: solid 1px black;
+}
+
+#board #contents>label {
+	height: 209px;
+}
+
+label+input, label+textarea{
+	margin: 4px 0px;
+	margin-left: 5px;
+}

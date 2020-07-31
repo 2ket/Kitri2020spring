@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+	
+	
+	<!-- Controller, Service, Dao --><!-- Namespaces에서 context 체크해줄것 -->
+	<context:component-scan base-package="com.java..*"/>
+	
+	
+	<!-- AOP -->
+	<aop:aspectj-autoproxy/>	<!-- 어노테이션으로 자동주입해주라는 문장 -->
+<!-- @Aspect, @Around 설정으로 사라진 코드
+	<bean id="hAspect" class="com.java.aop.HAspect"/>
+	<aop:config>
+		<aop:aspect id="exAspect" ref="hAspect">
+			<aop:pointcut expression="within(com.java..*)" id="pMethod"/>
+			<aop:around method="advice" pointcut-ref="pMethod"/>
+		</aop:aspect>
+	</aop:config>
+ -->	
+
+<!-- @Contorller 설정으로 사라진 코드
+	Handler Mapping / UI요청이 들어오면 해당 클래스를 찾아라
+	<bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings"> setter 
+			<props>클래스를 찾고 
+				<prop key="/member/*.do">memberController</prop> 여기의 컨트롤러 = MVC의 커맨드 
+				<prop key="/fileBoard/*.do">fileBoardController</prop>
+			</props> parameter 
+		</property>
+	</bean>
+ -->
+
+	
+	
+	
+	<!-- MVC RequestDispatcher / foward --><!-- view라는 애가 넘어오면 내부적으로 이동하라는 명령 -->
+	<bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+</beans>

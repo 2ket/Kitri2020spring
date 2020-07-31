@@ -1,0 +1,39 @@
+#container{
+		margin: 100px auto;
+		width : 600px;
+	}
+	#container>span{
+		display:block;
+		text-align: center;
+		font-weight: bold;
+	}
+	
+	#table_form{
+		margin: auto;
+	}
+	#table_form div{
+		margin-top : -2px;
+		border: solid 2px black;
+		height: 30px;
+		line-height: 30px;
+	}
+	#table_form label{
+		display: block;
+		width : 120px;
+		float : left;
+		margin-left: 5px;
+		border-right: solid 2px black;
+	}
+	#table_form input{
+		margin : 0px 3px;
+	}
+	#table_form input[name^="jumin"]{
+		width: 120px;
+	}
+	#table_form select{
+		margin : 0px 3px;
+		width: 120px;
+	}
+	#form_button{
+		text-align: center;
+	}

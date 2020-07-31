@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:aop="http://www.springframework.org/schema/aop"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+   <!-- URL / Method Mapping -->
+   <bean id="filePropertiesMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+      <property name="mappings">
+         <props>
+            <prop key="/fileBoard/write.do">fileBoardWrite</prop>
+            <prop key="/fileBoard/writeOk.do">fileBoardWriteOk</prop>
+            <prop key="/fileBoard/list.do">fileBoardList</prop>
+            <prop key="/fileBoard/read.do">fileBoardRead</prop>
+            <prop key="/fileBoard/downLoad.do">fileBoardDownLoad</prop>
+            <prop key="/fileBoard/delete.do">fileBoardDelete</prop>
+            <prop key="/fileBoard/deleteOk.do">fileBoardDeleteOk</prop>
+            <prop key="/fileBoard/update.do">fileBoardUpdate</prop>
+            <prop key="/fileBoard/updateOk.do">fileBoardUpdateOk</prop>
+         </props>
+      </property>
+   </bean>
+
+   <!-- FileBoardController -->
+   <bean id="fileBoardController" class="com.java.fileBoard.controller.FileBoardController">
+      <property name="fileBoardService" ref="fileBoardServiceImp"/>
+      <property name="methodNameResolver" ref="filePropertiesMethodNameResolver"/>
+   </bean>
+   
+   <!-- FileBoardService -->
+   <bean id="fileBoardServiceImp" class="com.java.fileBoard.service.FileBoardServiceImp">
+      <property name="fileBoardDao" ref="fileBoardDaoImp"/>
+   </bean> 
+   <!-- FileBoardDao -->
+   <bean id="fileBoardDaoImp" class="com.java.fileBoard.dao.FileBoardDaoImp">
+      <constructor-arg ref="sqlSessionTemplate"/>
+   </bean> 
+   
+   <!-- fileUpload -->
+   <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+   	<property name="maxUploadSize" value="502400"/> <!-- 102400 -->
+   	<property name="defaultEncoding" value="utf-8"/>
+   </bean>
+   
+</beans>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
+	<!-- MemberController -->
+	<!-- MemberController의 @Autowired로 MemberServiceImp 받는코드 사라짐
+	<bean id="memberController" class="com.java.member.controller.MemberController">
+		<constructor-arg ref="memberServiceImp"/>
+		<property name="methodNameResolver" ref="memberPropertiesMethodNameResolver"></property>
+	</bean>
+	 -->
+	<!-- Handler Mapping : propertiesMethodNameResolver -->
+	<!-- @RequestMapping(value="/member/test.do", method=RequestMethod.GET) 식으로 사라진 mapping -->
+	<!-- 
+	<bean id="memberPropertiesMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>함수를 찾음 
+				<prop key="/member/test.do">testing</prop>
+				<prop key="/member/register.do">memberRegister</prop>
+				<prop key="/member/registerOk.do">memberRegisterOk</prop>
+				<prop key="/member/idCheck.do">memberIdCheck</prop>
+				<prop key="/member/zipcode.do">memberZipcode</prop>
+				<prop key="/member/login.do">memberLogin</prop>
+				<prop key="/member/loginOk.do">memberLoginOk</prop>
+				<prop key="/member/main.do">memberMain</prop>
+				<prop key="/member/logout.do">memberLogout</prop>
+				<prop key="/member/update.do">memberUpdate</prop>
+				<prop key="/member/updateOk.do">memberUpdateOk</prop>
+				<prop key="/member/delete.do">memberDelete</prop>
+				<prop key="/member/deleteOk.do">memberDeleteOk</prop>
+			</props>
+		</property>
+	</bean>
+	 -->
+	<!-- MemberService -->
+	<!-- MemberService의 @Component 와 @Autowired로 사라진 코드
+	<bean id="memberServiceImp" class="com.java.member.service.MemberServiceImp">
+		<constructor-arg ref="memberDaoImp"/>
+	</bean>
+	 -->
+	<!-- MemberDAO -->
+	<!-- MemberDao의 @Component 와 @Autowired로 사라진 코드
+	<bean id="memberDaoImp" class="com.java.member.dao.MemberDaoImp">
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"/>
+	</bean>
+	 -->
+</beans>
