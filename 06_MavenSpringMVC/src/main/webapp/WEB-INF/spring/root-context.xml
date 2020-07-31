@@ -24,12 +24,13 @@
 		<!-- <property name="mapperLocations" value="classpath:com/java/member/dao/mapper/MemberMapper.xml"/> -->
 		
 		<!-- mapper.xml이 두개 이상이면 mapperLoactions(List) 로 List에 담아서  설정해줘야한다.-->
-		<property name="mapperLocations" >
+		<!-- <property name="mapperLocations" >
 			<list>
 				<value>classpath:com/java/member/dao/mapper/MemberMapper.xml</value>
-				<!-- <value>classpath:com/java/fileBoard/dao/mapper/FileBoardMapper.xml</value> -->
+				<value>classpath:com/java/fileBoard/dao/mapper/FileBoardMapper.xml</value>
 			</list>
-		</property>
+		</property> -->
+		<property name="mapperLocations" value="classpath:com/java/**/*.xml"/>
 	</bean>
 	
 	<!-- Mybatis : sqlSessionTemplate -->
