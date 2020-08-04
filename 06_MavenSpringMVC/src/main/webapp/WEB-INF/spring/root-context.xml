@@ -10,13 +10,23 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
 	<!-- Spring DB Driver -->
+	<!-- **서버에 DB접촉반복을 피하기 위해 커넥션 풀을 설정할 거임. 아래 드라이버 bean은 주석처리한다.**
 	<bean id="driverManagerDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
 		<property name="username" value="mvc"/>
 		<property name="password" value="1234"/>
+	</bean> 
+	-->
+	<bean id="driverManagerDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+		<property name="username" value="mvc"/>
+		<property name="password" value="1234"/>
+		<property name="maxActive" value="40"/>
+		<property name="maxIdle" value="20"/>
+		<property name="maxWait" value="3000"/>
 	</bean>
-	
 	<!-- Mybatis : sqlSessionFactoryBean-->
 	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="driverManagerDataSource"/>
