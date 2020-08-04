@@ -1,3 +1,11 @@
 /.metadata/
 /Servers/
-bin/**/*.class
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+.settings/
+.loadpath
+.recommenders
