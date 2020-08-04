@@ -18,7 +18,7 @@
 			</form>
 		</div>
 	</c:if>
-	<c:if test="${check ==0 }">
+	<c:if test="${check==0 }">
 		<div align="center">
 			사용 가능한 id입니다.
 		</div>

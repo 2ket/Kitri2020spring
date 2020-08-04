@@ -11,7 +11,7 @@
 	<script type="text/javascript" src="${root }/javaScript/member/register.js"></script>
 </head>
 <body>
-	<jsp:include page="../../../index.jsp"/><br><br>
+	<%-- <jsp:include page="../../../index.jsp"/><br><br> --%>
 	
 	<div id="container">
 		<span>회원수정(*필수입력사항입니다.)</span>

@@ -9,7 +9,6 @@
 </head>
 <body>
 	<c:set var="root" value="${pageContext.request.contextPath }"/>
-	${root }
 	<c:if test="${check>0 }">
 		<script type="text/javascript">
 			alert("회원가입이 완료되었습니다.");
@@ -17,7 +16,6 @@
 			
 		</script>
 	</c:if>
-	
 	<c:if test="${check==0 }">
 		<script type="text/javascript">
 			alert("회원가입이 되지 않습니다.");

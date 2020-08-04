@@ -131,10 +131,10 @@ function idCheck(root){//아이디 중복 확인을 누르면 입력한 아이�
       return false;
    }
    
-   var url = root+"/member/idCheck.do?id=" + $("input[name = 'id']").val();
+   var url = root+"/member/idCheck.do?id="+$("input[name='id']").val();
    //alert(url);
    
-   window.open(url, "", "width = 250, height = 150");
+   window.open(url, "", "width=250, height=150");
 }
 
 //우편번호 검색 버튼 누르면 팝업뜨게

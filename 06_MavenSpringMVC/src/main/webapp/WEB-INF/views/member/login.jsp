@@ -10,7 +10,7 @@
 <script type="text/javascript" src="${root }/javaScript/member/rUtil.js"></script>
 </head>
 <body>
-	<jsp:include page="../../../index.jsp"/><br><br>
+	<%-- <jsp:include page="../../../index.jsp"/><br><br> --%>
 
 	<div align="center">
 		<form action="${root }/member/loginOk.do" method="post" onsubmit="return idCheckFunc(this)">

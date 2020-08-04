@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:include page="../../../index.jsp"/>
+	<%-- <jsp:include page="../../../index.jsp"/> --%>
 	<form action="${root }/member/deleteOk.do" method="post">
 		<table>
 			<tr>

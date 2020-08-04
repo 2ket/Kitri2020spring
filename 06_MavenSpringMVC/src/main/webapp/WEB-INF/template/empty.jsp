@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%-- <jsp:include page="../../../index.jsp"/> --%>
-	<h3>안녕하세요. ${id }님 즐거운 시간되세요.</h3>
+
+	<!-- content -->
+	<tiles:insertAttribute name="content"/>
+	
 </body>
 </html>

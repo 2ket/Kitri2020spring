@@ -41,7 +41,8 @@ public class MemberServiceImp implements MemberService {
 		HAspect.logger.info(HAspect.logMsg+check);
 		
 		mav.addObject("check", check);
-		mav.setViewName("member/registerOk");
+		//mav.setViewName("member/registerOk");
+		mav.setViewName("member/registerOk.tiles");
 	}
 	@Override
 	public void memberIdCheck(ModelAndView mav) {
@@ -55,7 +56,7 @@ public class MemberServiceImp implements MemberService {
 		
 		mav.addObject("check", check);
 		mav.addObject("id", id);
-		mav.setViewName("member/idCheck");
+		mav.setViewName("member/idCheck.empty");
 	}
 	@Override
 	public void memberZipcode(ModelAndView mav) {
@@ -72,7 +73,7 @@ public class MemberServiceImp implements MemberService {
 	        mav.addObject("zipcodeList", zipcodeDto);
 	     }
 	     
-	     mav.setViewName("member/zipcode");
+	     mav.setViewName("member/zipcode.empty");
 	     
 	}
 	@Override
@@ -92,7 +93,8 @@ public class MemberServiceImp implements MemberService {
 		
 		mav.addObject("memberLevel",value);
 		mav.addObject("id", hmap.get("id"));
-		mav.setViewName("member/loginOk");
+		//mav.setViewName("member/loginOk");
+		mav.setViewName("member/loginOk.tiles");
 	}
 	
 	@Override
@@ -107,7 +109,8 @@ public class MemberServiceImp implements MemberService {
 		HAspect.logger.info(HAspect.logMsg+memberDto);
 		
 		mav.addObject("memberDto",memberDto);
-		mav.setViewName("member/update");
+		//mav.setViewName("member/update");
+		mav.setViewName("member/update.tiles");
 		
 	}
 	@Override
@@ -119,7 +122,8 @@ public class MemberServiceImp implements MemberService {
 		int check=memberDao.memberUpdateOk(memberDto);
 		HAspect.logger.info(HAspect.logMsg+check);
 		mav.addObject("check",check);
-		mav.setViewName("member/updateOk");
+		//mav.setViewName("member/updateOk");
+		mav.setViewName("member/updateOk.tiles");
 	}
 	
 	@Override
@@ -137,6 +141,7 @@ public class MemberServiceImp implements MemberService {
 		HAspect.logger.info(HAspect.logMsg+check);
 		
 		mav.addObject("check", check);
-		mav.setViewName("member/deleteOk");
+		//mav.setViewName("member/deleteOk");
+		mav.setViewName("member/deleteOk.tiles");
 	}
 }
